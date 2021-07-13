@@ -1,0 +1,72 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "The Legend of Zelda: Link’s Awakening",
+      "platform": "Nintendo Switch",
+      "categories": [
+        "Ação",
+        "Aventura"
+      ],
+      "image": "img-4.png",
+      "price": "R$ 299,00"
+    },
+    {
+      "id": 2,
+      "name": "Animal Crossing: New Horizons",
+      "platform": "Nintendo Switch",
+      "categories": [
+        "Simulação"
+      ],
+      "image": "img-2.png",
+      "price": "R$ 350,00"
+    },
+    {
+      "id": 3,
+      "name": "Celeste",
+      "platform": "PC",
+      "categories": [
+        "Ação",
+        "Aventura",
+        "Indie"
+      ],
+      "image": "img-5.png",
+      "price": "R$ 36,99"
+    },
+    {
+      "id": 4,
+      "name": "Hades",
+      "platform": "PC/Nintendo Switch",
+      "categories": [
+        "Ação",
+        "RPG",
+        "Indie"
+      ],
+      "image": "img-1.png",
+      "price": "R$ 47,49"
+    },
+    {
+      "id": 5,
+      "name": "Knockout City™",
+      "platform": "PC/Nintendo Switch",
+      "categories": [
+        "Ação",
+        "Aventura",
+        "Esportes"
+      ],
+      "image": "img-3.png",
+      "price": "R$ 99,00"
+    },
+    {
+      "id": 6,
+      "name": "Dota 2",
+      "platform": "PC",
+      "categories": [
+        "Ação",
+        "Estratégia"
+      ],
+      "image": "img-6.png",
+      "price": "Gratuito p/ jogar"
+    }
+  ]
+}
