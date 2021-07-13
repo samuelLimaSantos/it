@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ToastInfo, useToast } from '../../hooks/toast';
+import { ToastInfo } from '../../hooks/toast';
 import { Container, ToastBackground, Message } from './styles';
 
 type Props = {
