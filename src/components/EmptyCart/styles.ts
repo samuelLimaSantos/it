@@ -16,6 +16,7 @@ export const CartEmptyMessage = styled.Text`
 export const CartEmptyImage = styled.Image`
   margin-top: 32px;
   width: 100%;
-  height: 300px;
+  height: 250px;
+  margin-bottom: 24px;
 `;
 

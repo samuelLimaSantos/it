@@ -20,6 +20,7 @@ export function EmptyCart() {
       <SimpleButton 
         title="Ver produtos"
         onPress={() => navigate("Products")}
+        rounded
       />
     </Container>
   )

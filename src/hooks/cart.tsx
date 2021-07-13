@@ -11,6 +11,7 @@ type CartContextData  = {
   addProductToCart: (product: Product) => void;
   removeProductInCart: (id: number) => void;
   cart: Cart[];
+  setCart: React.Dispatch<React.SetStateAction<Cart[]>>;
 }
 
 export type Cart = {
@@ -90,7 +91,7 @@ export const CartProvider = ({ children }: Props) => {
   }
 
   return (
-    <CartContext.Provider value={{ addProductToCart,  removeProductInCart, cart }}>
+    <CartContext.Provider value={{ addProductToCart,  removeProductInCart, cart, setCart }}>
       {children}
     </CartContext.Provider>
   );

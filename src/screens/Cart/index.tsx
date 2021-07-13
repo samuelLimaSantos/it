@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Title } from '../../components/Title';
 import { EmptyCart } from '../../components/EmptyCart';
 import { useCart } from '../../hooks/cart';
@@ -24,6 +24,7 @@ import { CartCheck } from '../../assets/icons/CartCheck';
 import { theme } from '../../global/styles';
 import { transformToNumber } from '../../utils/transformToNumber';
 import { formatPrice } from '../../utils/formatPrice';
+import { ModalConfirm } from '../../components/ModalConfirm';
 
 
 export function Cart() {
@@ -34,6 +35,7 @@ export function Cart() {
   const [ shipping, setShipping ] = useState(false);
   const [ totalPrice, setTotalPrice ] = useState(0);
   const [ totalQuantity, setTotalQuantity ] = useState(0);
+  const [ showModal, setShowModal ] = useState(false);
 
 
   useEffect(() => {
@@ -55,7 +57,14 @@ export function Cart() {
           title="Seu"
           titleBold="Carrinho"
         />
-          
+        
+        <ModalConfirm 
+          modalVisible={showModal}
+          setModalVisible={setShowModal}
+          redirect="Products"
+          totalPrice={formatPrice(totalPrice)}
+        />
+
           {cart.length === 0 ? <EmptyCart /> : (
             <>
               <CartList 
@@ -109,6 +118,7 @@ export function Cart() {
       <FinalizeContainer
         activeOpacity={0.6}
         disabled={!shipping}
+        onPress={() =>  setShowModal(true)}
       >
         <Wrapper>
           <RegularTextFinalize disabled={!shipping}>

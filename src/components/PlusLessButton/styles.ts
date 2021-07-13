@@ -6,7 +6,6 @@ export const Container = styled.View`
 `;
 
 export const PlusButton = styled.TouchableOpacity`
-  /* background-color: ${theme.colors.cardBackground}; */
   padding: 6px;
   height: 25px;
   justify-content: center;
@@ -24,7 +23,6 @@ export const Indicator = styled.Text`
 `;
 
 export const LessButton =  styled.TouchableOpacity`
-  /* background-color: ${props => props.disabled ? theme.colors.cardBackgroundDisabled : theme.colors.cardBackground}; */
   padding: 6px;
   height: 25px;
 

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Keyboard } from 'react-native';
 import { TextInputMaskProps } from 'react-native-masked-text';
 import { MapMark } from '../../assets/icons/MapMark';
 import { useToast } from '../../hooks/toast';
@@ -30,9 +31,11 @@ export function FormFieldZip({ label, setShipping, shipping, ...rest }: Props) {
         show: true,
         type: 'error'
       });
+      Keyboard.dismiss()
       return setShipping(false);
     };
 
+    Keyboard.dismiss()
     setShipping(true);
   }
 
@@ -43,7 +46,11 @@ export function FormFieldZip({ label, setShipping, shipping, ...rest }: Props) {
       </Label>
 
       <InputContainer>
-        <Input {...rest}/>
+        <Input 
+          {...rest} 
+          onEndEditing={handleCalculateShipping} 
+          returnKeyType="send" 
+        />
 
 
         <Button

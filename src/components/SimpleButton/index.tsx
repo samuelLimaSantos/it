@@ -1,30 +1,28 @@
 import React from 'react';
-import { View } from 'react-native';
 import { RectButtonProps } from 'react-native-gesture-handler';
 import { Button, Title, IconContainer, Container } from './styles';
-import image from '../../assets/img-1.png'
 
 type Props = RectButtonProps & {
   title: string;
   icon?: Function;
+  rounded?: boolean;
 }
 
-export function SimpleButton({ title, icon: Icon, ...rest}: Props) {
+export function SimpleButton({ title, icon: Icon, rounded, ...rest}: Props) {
 
   return (
-    <Container >
+    <Container rounded={rounded}>
+      <Button {...rest}>
+        {Icon && (
+          <IconContainer>
+            <Icon />
+          </IconContainer>
+        )}
 
-    <Button {...rest} >
-      {Icon && (
-        <IconContainer>
-          <Icon />
-        </IconContainer>
-      )}
-
-      <Title>
-        {title}
-      </Title>
-    </Button>
+        <Title>
+          {title}
+        </Title>
+      </Button>
     </Container>
   );
 }

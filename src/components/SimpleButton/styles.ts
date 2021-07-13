@@ -2,9 +2,11 @@ import { RectButton } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 import { theme } from '../../global/styles';
 
-export const Container = styled.View`
+export const Container = styled.View<{ rounded?: boolean}>`
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+  border-top-left-radius: ${props => props.rounded ? '8px' : 0};
+  border-top-right-radius: ${props => props.rounded  ? '8px' : 0};
   height: 46px;
   background-color: ${theme.colors.primary};
   align-items: center;
