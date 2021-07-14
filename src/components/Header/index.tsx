@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { CartSvg } from '../../assets/icons/Cart';
 import { CartItem } from '../../assets/icons/CartItem';
 import { useCart } from '../../hooks/cart';
-import logo from '../../../assets/icon.png';
+import logo from '../../assets/logo.png';
 import { Container, CartContainer } from './styles';
 
 export function Header() {
