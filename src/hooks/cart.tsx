@@ -3,15 +3,18 @@ import React, {
   useState,
   useContext,
   ReactNode,
+  useEffect
 } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Product } from '../screens/Products';
 import { useToast } from './toast';
+import { useLoading } from './loading';
 
 type CartContextData  = {
-  addProductToCart: (product: Product) => void;
-  removeProductInCart: (id: number) => void;
+  addProductToCart: (product: Product) => Promise<void>;
+  removeProductInCart: (id: number) => Promise<void>;
   cart: Cart[];
-  setCart: React.Dispatch<React.SetStateAction<Cart[]>>;
+  finalizeBuy: () => Promise<void>;
 }
 
 export type Cart = {
@@ -29,8 +32,25 @@ export const CartProvider = ({ children }: Props) => {
   const [ cart, setCart ] = useState<Cart[]>([]);
 
   const { showToast } = useToast();
+  const { showLoading } = useLoading();
 
-  const addProductToCart = (newProduct: Product) => {
+  useEffect(() => {
+    async function loadStorageData() {
+      showLoading(true);
+      const cartStorage = await AsyncStorage.getItem('@it:cart');
+      showLoading(false);
+
+      if (cartStorage) {
+        
+        setCart(JSON.parse(cartStorage));
+      }
+
+    }
+
+    loadStorageData();
+  }, []);
+
+  const addProductToCart = async (newProduct: Product) => {
 
     const productAlreadyInCart = cart.findIndex(({product}) => product.id === newProduct.id);
 
@@ -52,7 +72,15 @@ export const CartProvider = ({ children }: Props) => {
       product: newProduct,
     }
 
-    cart.length === 0 ? setCart([newProductIntoCart]) : setCart([...cart, newProductIntoCart]);
+    const setUpdated =  cart.length === 0 ? [newProductIntoCart] : [...cart, newProductIntoCart];
+
+    setCart(setUpdated);
+
+    showLoading(true);
+
+    await AsyncStorage.setItem('@it:cart', JSON.stringify(setUpdated));
+
+    showLoading(false);
 
     showToast({
       message: 'Item adicionado ao carrinho',
@@ -62,7 +90,7 @@ export const CartProvider = ({ children }: Props) => {
     
   };
 
-  const removeProductInCart = (id: number) => {
+  const removeProductInCart = async (id: number) => {
 
     const productAlreadyInCart = cart.findIndex(({product}) => product.id === id);
 
@@ -82,6 +110,12 @@ export const CartProvider = ({ children }: Props) => {
     updatedCart = cart.filter(({product}) => product.id !== id);
 
     setCart(updatedCart);
+
+    showLoading(true);
+
+    await AsyncStorage.setItem('@it:cart', JSON.stringify(updatedCart));
+
+    showLoading(false);
   
     showToast({
       message: 'Item removido do carrinho',
@@ -90,8 +124,18 @@ export const CartProvider = ({ children }: Props) => {
     });
   }
 
+  const finalizeBuy = async () => {
+    setCart([]);
+
+    showLoading(true);
+
+    await AsyncStorage.setItem('@it:cart', JSON.stringify([]));
+
+    showLoading(false);
+  }
+
   return (
-    <CartContext.Provider value={{ addProductToCart,  removeProductInCart, cart, setCart }}>
+    <CartContext.Provider value={{ addProductToCart,  removeProductInCart, cart, finalizeBuy }}>
       {children}
     </CartContext.Provider>
   );

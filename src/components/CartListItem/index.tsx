@@ -20,12 +20,12 @@ export function CartListItem({data}: Props) {
 
   const { addProductToCart, removeProductInCart } = useCart();
 
-  function addProduct() {
-    addProductToCart(data.product);
+  async function addProduct() {
+    await addProductToCart(data.product);
   }
 
-  function removeProduct() {
-    removeProductInCart(data.product.id);
+  async function removeProduct() {
+    await removeProductInCart(data.product.id);
   }
 
   return (

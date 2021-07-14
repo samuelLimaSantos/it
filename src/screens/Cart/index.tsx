@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Title } from '../../components/Title';
 import { EmptyCart } from '../../components/EmptyCart';
 import { useCart } from '../../hooks/cart';
@@ -32,11 +32,29 @@ export function Cart() {
   const { cart, addProductToCart } = useCart();
 
   const [ zipCode, setZipCode ] = useState('');
-  const [ shipping, setShipping ] = useState(false);
+  const [ shipping, setShipping ] = useState(0);
   const [ totalPrice, setTotalPrice ] = useState(0);
   const [ totalQuantity, setTotalQuantity ] = useState(0);
   const [ showModal, setShowModal ] = useState(false);
 
+  const calculateDiscount = useCallback((totalPrice: number) => {
+    const discount = 0.25;
+    const quantityToHaveDiscount = 3;
+
+    const totalWithDiscount =  cart
+      .filter(product => product.quantity >= quantityToHaveDiscount)
+      .reduce((prev, current) => {
+        const priceToDiscount = transformToNumber(current.product.price) * discount;
+        
+        const quantityToDiscount = Math.floor(current.quantity / quantityToHaveDiscount);
+        
+        const totalDiscount = priceToDiscount * quantityToDiscount;
+        
+        return prev + totalDiscount;
+      }, 0);
+      
+    return totalPrice - totalWithDiscount;
+  }, [ cart, transformToNumber ]);
 
   useEffect(() => {
     const totalCartPrice = cart.reduce((prev, current) => {
@@ -44,8 +62,10 @@ export function Cart() {
     }, 0);
 
     const totalCartQuantity = cart.reduce((prev, current) => prev + current.quantity , 0);
-    
-    setTotalPrice(shipping ? totalCartPrice + 100 : totalCartPrice);
+
+    const totalWithDiscount = calculateDiscount(totalCartPrice);
+
+    setTotalPrice(shipping ? totalWithDiscount + shipping : totalWithDiscount);
     setTotalQuantity(totalCartQuantity);
 
   }, [ addProductToCart, shipping ]);
@@ -89,14 +109,14 @@ export function Cart() {
               />
 
               <TotalContainer>
-                {shipping && (
+                {shipping > 0 && (
                   <Shipping>
                     <RegularText>
                       frete
                     </RegularText>
 
                     <BoldText>
-                      R$100,00
+                      {formatPrice(shipping)}
                     </BoldText>
                   </Shipping>
                 )}

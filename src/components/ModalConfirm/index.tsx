@@ -25,13 +25,13 @@ type Props = {
 export function ModalConfirm({ modalVisible, setModalVisible, redirect, totalPrice }: Props) {
 
   const { navigate } = useNavigation();
-  const { setCart } = useCart();
+  const { finalizeBuy } = useCart();
   const { showToast } = useToast();
   
-  const finalize = () => {
-    setCart([]);
+  const finalize = async () => {
     setModalVisible(false);
     navigate(redirect);
+    await finalizeBuy();
     showToast({
       message: 'Compra realizada com sucesso',
       show: true,
