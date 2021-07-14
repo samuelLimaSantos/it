@@ -48,7 +48,7 @@ Por padrão, o valor selecionado é o localhost na porta 3333. Na etapa de desen
 utilizado o emulador do android studio (lembrar de apontar a porta do emulador para a porta do PC). Caso você queira rodar a aplicação pelo celular físico pelo app do Expo Go, aconselha-se rodar o 
 comando ```yarn localhost``` e deixar descomentado a baseUrl ```https://application-mock-server.loca.lt/```.
 
-## Lessons Learned
+## Conhecimentos adquiridos durante o projeto
 
 Durante esse projeto pude aprender melhor a lidar com múltiplos contextos e utilizei o component de Modal que nunca tinha visto anteriormente.
 
