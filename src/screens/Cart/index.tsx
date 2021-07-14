@@ -48,7 +48,7 @@ export function Cart() {
         
         const quantityToDiscount = Math.floor(current.quantity / quantityToHaveDiscount);
         
-        const totalDiscount = priceToDiscount * quantityToDiscount;
+        const totalDiscount = priceToDiscount * (quantityToDiscount * quantityToHaveDiscount);
         
         return prev + totalDiscount;
       }, 0);

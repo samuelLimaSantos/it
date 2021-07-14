@@ -104,6 +104,7 @@ export const CartProvider = ({ children }: Props) => {
         type: 'success',
         show: true,
       });
+      await AsyncStorage.setItem('@it:cart', JSON.stringify(updatedCart));
       return 
     }
 

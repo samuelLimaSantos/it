@@ -3,7 +3,9 @@ export function formatPrice (price: number) {
   let priceString = price.toString();
 
   if (priceString.includes('.')) {
-    return `R$ ${priceString.replace('.', ',')}`;
+    const [ reals, cents ] = priceString.replace('.', ',').split(',');
+
+    return `R$ ${reals},${cents.slice(0, 2)}`;
   }
 
   return `R$ ${priceString},00`
